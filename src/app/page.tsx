@@ -1,10 +1,12 @@
+import FeaturedCarousel from "@/components/FeaturedCarousel";
+
 export default function AboutPage() {
   return (
     <div className="px-6 py-8 max-w-3xl mx-auto">
       <h1 className="font-mono text-lg text-accent mb-6">About</h1>
 
       <section className="mb-8 flex items-start gap-6">
-        <div className="shrink-0 w-28 h-28 border border-border bg-card flex items-center justify-center">
+        <div className="shrink-0 w-40 h-40 border border-border bg-card flex items-center justify-center">
           <span className="font-mono text-xs text-text-secondary">Profile Image</span>
         </div>
         <div>
@@ -41,7 +43,7 @@ export default function AboutPage() {
         </ul>
       </section>
 
-      <section>
+      <section className="mb-8">
         <h2 className="font-mono text-sm text-text-secondary mb-3 uppercase tracking-wider">
           Tools
         </h2>
@@ -55,6 +57,13 @@ export default function AboutPage() {
             </li>
           ))}
         </ul>
+      </section>
+
+      <section>
+        <h2 className="font-mono text-sm text-text-secondary mb-3 uppercase tracking-wider">
+          Featured Works
+        </h2>
+        <FeaturedCarousel />
       </section>
     </div>
   );

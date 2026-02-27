@@ -25,7 +25,7 @@ export default function Navbar() {
         href="/"
         className="font-mono text-sm font-bold tracking-wider text-accent"
       >
-        BLOCKBENCH
+        Hongddi&apos;s Atelier
       </Link>
       <div className="flex gap-6">
         {links.map((link) => (
