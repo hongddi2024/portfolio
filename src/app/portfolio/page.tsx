@@ -6,6 +6,7 @@ import MasonryGrid from "@/components/MasonryGrid";
 import Lightbox from "@/components/Lightbox";
 import LoadMoreTrigger from "@/components/LoadMoreTrigger";
 import TagFilter from "@/components/TagFilter";
+import ScrollProgress from "@/components/ScrollProgress";
 
 const PAGE_SIZE = 12;
 
@@ -61,6 +62,7 @@ export default function PortfolioPage() {
         </svg>
         <span className="font-mono text-2xl text-accent mb-2">Scroll Down to Explore</span>
       </div>
+    <ScrollProgress />
     <div className="px-6 py-8 max-w-[1800px] mx-auto">
       <h1 className="font-mono text-lg text-accent mb-6">Portfolio</h1>
       <TagFilter tags={tags} activeTag={activeTag} onSelect={handleTagSelect} />
