@@ -3,8 +3,7 @@
 import LightboxComponent from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 import { PortfolioImage } from "@/types";
-
-const basePath = process.env.__NEXT_ROUTER_BASEPATH || "";
+import { assetPath } from "@/lib/basepath";
 
 interface LightboxProps {
   images: PortfolioImage[];
@@ -15,7 +14,7 @@ interface LightboxProps {
 
 export default function Lightbox({ images, open, index, onClose }: LightboxProps) {
   const slides = images.map((img) => ({
-    src: `${basePath}${img.src}`,
+    src: assetPath(img.src),
     alt: img.alt,
     width: img.width,
     height: img.height,

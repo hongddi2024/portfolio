@@ -1,7 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import { PortfolioImage } from "@/types";
+import { assetPath } from "@/lib/basepath";
 
 interface ImageCardProps {
   image: PortfolioImage;
@@ -15,13 +15,13 @@ export default function ImageCard({ image, onClick }: ImageCardProps) {
       className="block w-full border border-border hover:border-border-hover transition-colors duration-200 mb-3 relative group cursor-pointer bg-card"
       type="button"
     >
-      <Image
-        src={image.src}
+      <img
+        src={assetPath(image.src)}
         alt={image.alt}
         width={image.width}
         height={image.height}
         className="w-full h-auto block"
-        unoptimized
+        loading="lazy"
       />
       <div className="absolute inset-0 pointer-events-none select-none overflow-hidden watermark-pattern" />
       <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-opacity duration-200 flex items-end">
