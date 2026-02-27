@@ -29,8 +29,14 @@ export default function LoadMoreTrigger({ onLoadMore, hasMore }: LoadMoreTrigger
   if (!hasMore) return null;
 
   return (
-    <div ref={ref} className="h-8 flex items-center justify-center">
-      <span className="text-text-secondary text-sm font-mono">Loading...</span>
-    </div>
+    <>
+      <div ref={ref} className="h-8" />
+      <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 flex flex-col items-center animate-bounce pointer-events-none">
+        <span className="font-mono text-xs text-text-secondary mb-1">More</span>
+        <svg width="20" height="12" viewBox="0 0 20 12" fill="none">
+          <path d="M2 2L10 10L18 2" stroke="#888888" strokeWidth="2" strokeLinecap="square" />
+        </svg>
+      </div>
+    </>
   );
 }
