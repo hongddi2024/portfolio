@@ -1,4 +1,5 @@
 import FeaturedCarousel from "@/components/FeaturedCarousel";
+import { assetPath } from "@/lib/basepath";
 
 export default function AboutPage() {
   return (
@@ -6,8 +7,8 @@ export default function AboutPage() {
       <h1 className="font-mono text-lg text-accent mb-6">About</h1>
 
       <section className="mb-8 flex items-start gap-6">
-        <div className="shrink-0 w-40 h-40 border border-border bg-card flex items-center justify-center">
-          <span className="font-mono text-xs text-text-secondary">Profile Image</span>
+        <div className="shrink-0 w-40 h-40 border border-border bg-card overflow-hidden">
+          <img src={assetPath("/images/profile/hongddi2.png")} alt="Hongddi Profile" className="w-full h-full object-cover" />
         </div>
         <div>
           <h2 className="font-mono text-sm text-text-secondary mb-3 uppercase tracking-wider">
