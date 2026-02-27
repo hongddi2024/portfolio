@@ -12,7 +12,7 @@ export default function ImageCard({ image, onClick }: ImageCardProps) {
   return (
     <button
       onClick={onClick}
-      className="block w-full border border-border hover:border-border-hover transition-colors duration-200 mb-3 relative group cursor-pointer bg-card"
+      className="block w-full border border-border hover:border-border-hover transition-colors duration-200 relative group cursor-pointer bg-card"
       type="button"
     >
       <img
