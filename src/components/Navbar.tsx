@@ -16,9 +16,10 @@ export default function Navbar() {
   function isActive(href: string) {
     const full = basePath + href;
     if (href === "/") {
-      return pathname === full || pathname === full + "/";
+      return pathname === full || pathname === basePath + "/" || pathname === basePath;
     }
-    return pathname.startsWith(full);
+    const withSlash = full.endsWith("/") ? full : full + "/";
+    return pathname === full || pathname === withSlash || pathname.startsWith(withSlash);
   }
 
   return (
