@@ -34,25 +34,26 @@ export default function ThankYouLetter({ onClose }: ThankYouLetterProps) {
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        style={{ perspective: "600px", ...containerStyle(phase) }}
+        style={containerStyle(phase)}
       >
-        <div className="relative w-72" style={{ height: "200px" }}>
+        {/* 전체 봉투 영역 */}
+        <div className="relative w-72" style={{ perspective: "800px" }}>
 
-          {/* 1) 편지지 — 가장 뒤 (z-index: 1) */}
+          {/* 편지지 — 봉투 뒤에서 위로 슬라이드 */}
           <div
-            className="absolute left-3 right-3"
             style={{
-              top: "40px",
+              position: "relative",
               zIndex: 1,
               transition: "all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)",
-              transform: isOpen ? "translateY(-170px)" : "translateY(0)",
+              transform: isOpen ? "translateY(0)" : "translateY(100px)",
+              opacity: isOpen ? 1 : 0,
             }}
           >
             <div
               style={{
                 background: "#f5f0e8",
                 padding: "28px 24px",
-                boxShadow: isOpen ? "0 8px 32px rgba(0,0,0,0.3)" : "none",
+                boxShadow: "0 -4px 20px rgba(0,0,0,0.2)",
               }}
             >
               <p style={{
@@ -61,67 +62,82 @@ export default function ThankYouLetter({ onClose }: ThankYouLetterProps) {
                 lineHeight: 1.8,
                 marginBottom: "20px",
                 fontFamily: "var(--font-sans)",
+                textAlign: "center",
               }}>
                 성원을 보내주셔서 감사합니다.
                 <br />
                 다른 작품들도 구경해보시겠어요?
               </p>
-              <button
-                type="button"
-                onClick={handleClose}
-                style={{
-                  color: "#888",
-                  fontSize: "12px",
-                  fontFamily: "var(--font-mono)",
-                  background: "none",
-                  border: "none",
-                  cursor: "pointer",
-                  padding: 0,
-                }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "#2a2a2a")}
-                onMouseLeave={(e) => (e.currentTarget.style.color = "#888")}
-              >
-                [ 닫기 ]
-              </button>
+              <div style={{ textAlign: "center" }}>
+                <button
+                  type="button"
+                  onClick={handleClose}
+                  style={{
+                    color: "#888",
+                    fontSize: "12px",
+                    fontFamily: "var(--font-mono)",
+                    background: "none",
+                    border: "none",
+                    cursor: "pointer",
+                    padding: 0,
+                  }}
+                  onMouseEnter={(e) => (e.currentTarget.style.color = "#2a2a2a")}
+                  onMouseLeave={(e) => (e.currentTarget.style.color = "#888")}
+                >
+                  [ 닫기 ]
+                </button>
+              </div>
             </div>
           </div>
 
-          {/* 2) 봉투 앞면 — 편지지를 덮음 (z-index: 10) */}
+          {/* 봉투 본체 */}
           <div
-            className="absolute inset-0"
             style={{
-              zIndex: 10,
+              position: "relative",
+              zIndex: 5,
+              height: "140px",
               background: "#c4a882",
               boxShadow: "0 4px 24px rgba(0,0,0,0.4)",
+              overflow: "hidden",
             }}
           >
-            {/* 봉투 안쪽 V 장식 */}
+            {/* 봉투 안쪽 V 장식 (아래쪽) */}
             <div style={{
               position: "absolute",
-              inset: 0,
-              background: "linear-gradient(135deg, #b89b72 50%, transparent 50%), linear-gradient(-135deg, #b89b72 50%, transparent 50%)",
-              backgroundSize: "50.1% 100%",
-              backgroundPosition: "left, right",
-              backgroundRepeat: "no-repeat",
-              opacity: 0.4,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              height: "100%",
+              clipPath: "polygon(0 100%, 50% 30%, 100% 100%)",
+              background: "#b89b72",
             }} />
           </div>
 
-          {/* 3) 봉투 뚜껑 — 가장 앞 (z-index: 20) */}
-          <div style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            right: 0,
-            height: "100px",
-            zIndex: 20,
-            background: "#c4a882",
-            clipPath: "polygon(0 0, 50% 100%, 100% 0)",
-            transformOrigin: "top center",
-            transition: "transform 0.5s ease-in-out",
-            transform: isOpen ? "rotateX(180deg)" : "rotateX(0deg)",
-            backfaceVisibility: "hidden",
-          }} />
+          {/* 봉투 뚜껑 (위쪽 삼각 플랩) */}
+          <div
+            style={{
+              position: "absolute",
+              left: 0,
+              right: 0,
+              bottom: "140px",
+              height: "90px",
+              zIndex: 10,
+              transformOrigin: "bottom center",
+              transition: "transform 0.5s ease-in-out",
+              transform: isOpen
+                ? "rotateX(180deg)"
+                : "rotateX(0deg)",
+              backfaceVisibility: "hidden",
+            }}
+          >
+            <div style={{
+              width: "100%",
+              height: "100%",
+              background: "#c4a882",
+              clipPath: "polygon(0 100%, 50% 0%, 100% 100%)",
+              boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
+            }} />
+          </div>
         </div>
       </div>
     </div>
