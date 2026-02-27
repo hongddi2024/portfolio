@@ -2,6 +2,7 @@
 
 import { PortfolioImage } from "@/types";
 import { assetPath } from "@/lib/basepath";
+import LikeButton from "./LikeButton";
 
 interface ImageCardProps {
   image: PortfolioImage;
@@ -24,10 +25,13 @@ export default function ImageCard({ image, onClick }: ImageCardProps) {
         loading="lazy"
       />
       <div className="absolute inset-0 pointer-events-none select-none overflow-hidden watermark-pattern" />
-      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-opacity duration-200 flex items-end">
+      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-opacity duration-200 flex items-end justify-between">
         <span className="text-white text-sm font-mono p-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
           {image.title}
         </span>
+        <div className="p-3">
+          <LikeButton imageId={image.id} />
+        </div>
       </div>
     </button>
   );
