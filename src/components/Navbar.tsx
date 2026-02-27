@@ -11,15 +11,12 @@ const links = [
 
 export default function Navbar() {
   const pathname = usePathname();
-  const basePath = process.env.__NEXT_ROUTER_BASEPATH || "";
 
   function isActive(href: string) {
-    const full = basePath + href;
     if (href === "/") {
-      return pathname === full || pathname === basePath + "/" || pathname === basePath;
+      return pathname === "/" || pathname === "";
     }
-    const withSlash = full.endsWith("/") ? full : full + "/";
-    return pathname === full || pathname === withSlash || pathname.startsWith(withSlash);
+    return pathname === href || pathname.startsWith(href + "/");
   }
 
   return (
