@@ -32,11 +32,15 @@ export default function Lightbox({ images, open, index, onClose }: LightboxProps
       }}
       render={{
         slide: ({ slide }) => (
-          <div style={{ position: "relative", width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <div
+            onContextMenu={(e) => e.preventDefault()}
+            style={{ position: "relative", width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}
+          >
             <img
               src={slide.src}
               alt={(slide as { alt?: string }).alt || ""}
-              style={{ maxWidth: "100%", maxHeight: "100%", objectFit: "contain" }}
+              draggable={false}
+              style={{ maxWidth: "100%", maxHeight: "100%", objectFit: "contain", pointerEvents: "none", userSelect: "none" } as React.CSSProperties}
             />
             <div className="watermark-pattern" style={{ position: "absolute", inset: 0, pointerEvents: "none", userSelect: "none" }} />
           </div>
