@@ -52,15 +52,15 @@ export default function PortfolioPage() {
   return (
     <>
       <div
-        className={`fixed inset-0 z-50 bg-bg flex flex-col items-center justify-center transition-opacity duration-700 ${
-          showSplash ? "opacity-100" : "opacity-0 pointer-events-none"
+        className={`fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50 flex flex-col items-center pointer-events-none transition-opacity duration-700 ${
+          showSplash ? "opacity-100" : "opacity-0"
         }`}
       >
-        <svg className="mb-6 animate-bounce" width="28" height="44" viewBox="0 0 28 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg className="mb-4 animate-bounce" width="28" height="44" viewBox="0 0 28 44" fill="none" xmlns="http://www.w3.org/2000/svg">
           <rect x="1" y="1" width="26" height="42" rx="13" stroke="#e8e0d0" strokeWidth="2" />
           <circle className="animate-scroll-dot" cx="14" cy="14" r="3" fill="#e8e0d0" />
         </svg>
-        <span className="font-mono text-2xl text-accent mb-2">Scroll Down to Explore</span>
+        <span className="font-mono text-lg text-accent">Scroll Down to Explore</span>
       </div>
     <ScrollProgress />
     <div className="px-6 py-8 max-w-[1800px] mx-auto">
