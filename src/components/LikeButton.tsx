@@ -1,6 +1,10 @@
 "use client";
 
+import { useState } from "react";
 import { useLikes } from "@/hooks/useLikes";
+import ThankYouLetter from "./ThankYouLetter";
+
+const FIRST_LIKE_KEY = "portfolio-first-like-shown";
 
 interface LikeButtonProps {
   imageId: string;
@@ -8,14 +12,25 @@ interface LikeButtonProps {
 
 export default function LikeButton({ imageId }: LikeButtonProps) {
   const { count, liked, toggle } = useLikes(imageId);
+  const [showLetter, setShowLetter] = useState(false);
+
+  const handleClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    const wasLiked = liked;
+    toggle();
+
+    if (!wasLiked && !localStorage.getItem(FIRST_LIKE_KEY)) {
+      localStorage.setItem(FIRST_LIKE_KEY, "1");
+      setShowLetter(true);
+    }
+  };
 
   return (
-    <button
-      type="button"
-      onClick={(e) => {
-        e.stopPropagation();
-        toggle();
-      }}
+    <>
+      {showLetter && <ThankYouLetter onClose={() => setShowLetter(false)} />}
+      <button
+        type="button"
+        onClick={handleClick}
       className={`pointer-events-auto flex items-center gap-1 text-white/90 hover:text-white transition-all duration-150 cursor-pointer ${
         count > 0 || liked ? "opacity-100" : "opacity-0 group-hover:opacity-100"
       }`}
@@ -39,5 +54,6 @@ export default function LikeButton({ imageId }: LikeButtonProps) {
         <span className="text-xs font-mono tabular-nums">{count}</span>
       )}
     </button>
+    </>
   );
 }
