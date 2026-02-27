@@ -6,162 +6,128 @@ interface ThankYouLetterProps {
   onClose: () => void;
 }
 
-type Phase = "fly" | "land" | "open" | "closing";
+type Phase = "enter" | "visible" | "closing";
 
 export default function ThankYouLetter({ onClose }: ThankYouLetterProps) {
-  const [phase, setPhase] = useState<Phase>("fly");
+  const [phase, setPhase] = useState<Phase>("enter");
 
   useEffect(() => {
-    const t1 = setTimeout(() => setPhase("land"), 50);
-    const t2 = setTimeout(() => setPhase("open"), 700);
-    return () => { clearTimeout(t1); clearTimeout(t2); };
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => setPhase("visible"));
+    });
   }, []);
 
   const handleClose = () => {
     setPhase("closing");
-    setTimeout(onClose, 600);
+    setTimeout(onClose, 500);
   };
-
-  const isVisible = phase !== "fly" && phase !== "closing";
-  const isOpen = phase === "open";
 
   return (
     <div
-      className={`fixed inset-0 z-50 flex items-center justify-center p-4 transition-all duration-500 ${
-        isVisible ? "bg-black/60 backdrop-blur-sm" : "bg-black/0"
-      }`}
       onClick={handleClose}
+      style={{
+        position: "fixed",
+        inset: 0,
+        zIndex: 50,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "16px",
+        transition: "background 0.4s ease",
+        background: phase === "visible" ? "rgba(0,0,0,0.6)" : "rgba(0,0,0,0)",
+        backdropFilter: phase === "visible" ? "blur(4px)" : "none",
+      }}
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        style={containerStyle(phase)}
+        style={{
+          position: "relative",
+          width: "300px",
+          background: "#f5f0e8",
+          padding: "40px 32px 32px",
+          boxShadow:
+            phase === "visible"
+              ? "0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(0,0,0,0.1)"
+              : "none",
+          transition: "all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)",
+          transform:
+            phase === "enter"
+              ? "translateY(120vh) rotate(8deg)"
+              : phase === "closing"
+              ? "translateY(40px) scale(0.9) rotate(-2deg)"
+              : "translateY(0) rotate(0deg)",
+          opacity: phase === "closing" ? 0 : 1,
+        }}
       >
-        {/* 전체 봉투 영역 */}
-        <div className="relative w-72" style={{ perspective: "800px" }}>
+        {/* 상단 장식선 */}
+        <div style={{
+          position: "absolute",
+          top: "12px",
+          left: "32px",
+          right: "32px",
+          display: "flex",
+          alignItems: "center",
+          gap: "8px",
+        }}>
+          <div style={{ flex: 1, height: "1px", background: "#c4a882" }} />
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="#c4a882">
+            <path d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+          </svg>
+          <div style={{ flex: 1, height: "1px", background: "#c4a882" }} />
+        </div>
 
-          {/* 편지지 — 봉투 뒤에서 위로 슬라이드 */}
-          <div
+        {/* 본문 */}
+        <p style={{
+          color: "#2a2a2a",
+          fontSize: "14px",
+          lineHeight: 2,
+          textAlign: "center",
+          fontFamily: "var(--font-sans)",
+          margin: "0 0 24px",
+        }}>
+          성원을 보내주셔서 감사합니다.
+          <br />
+          다른 작품들도 구경해보시겠어요?
+        </p>
+
+        {/* 하단 장식선 + 닫기 */}
+        <div style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "8px",
+          marginBottom: "16px",
+        }}>
+          <div style={{ flex: 1, height: "1px", background: "#c4a882" }} />
+          <div style={{ flex: 1, height: "1px", background: "#c4a882" }} />
+        </div>
+
+        <div style={{ textAlign: "center" }}>
+          <button
+            type="button"
+            onClick={handleClose}
             style={{
-              position: "relative",
-              zIndex: 1,
-              transition: "all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)",
-              transform: isOpen ? "translateY(0)" : "translateY(100px)",
-              opacity: isOpen ? 1 : 0,
+              color: "#a08c6e",
+              fontSize: "12px",
+              fontFamily: "var(--font-mono)",
+              background: "none",
+              border: "1px solid #c4a882",
+              padding: "6px 20px",
+              cursor: "pointer",
+              transition: "all 0.2s",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = "#c4a882";
+              e.currentTarget.style.color = "#f5f0e8";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = "none";
+              e.currentTarget.style.color = "#a08c6e";
             }}
           >
-            <div
-              style={{
-                background: "#f5f0e8",
-                padding: "28px 24px",
-                boxShadow: "0 -4px 20px rgba(0,0,0,0.2)",
-              }}
-            >
-              <p style={{
-                color: "#2a2a2a",
-                fontSize: "14px",
-                lineHeight: 1.8,
-                marginBottom: "20px",
-                fontFamily: "var(--font-sans)",
-                textAlign: "center",
-              }}>
-                성원을 보내주셔서 감사합니다.
-                <br />
-                다른 작품들도 구경해보시겠어요?
-              </p>
-              <div style={{ textAlign: "center" }}>
-                <button
-                  type="button"
-                  onClick={handleClose}
-                  style={{
-                    color: "#888",
-                    fontSize: "12px",
-                    fontFamily: "var(--font-mono)",
-                    background: "none",
-                    border: "none",
-                    cursor: "pointer",
-                    padding: 0,
-                  }}
-                  onMouseEnter={(e) => (e.currentTarget.style.color = "#2a2a2a")}
-                  onMouseLeave={(e) => (e.currentTarget.style.color = "#888")}
-                >
-                  [ 닫기 ]
-                </button>
-              </div>
-            </div>
-          </div>
-
-          {/* 봉투 본체 */}
-          <div
-            style={{
-              position: "relative",
-              zIndex: 5,
-              height: "140px",
-              background: "#c4a882",
-              boxShadow: "0 4px 24px rgba(0,0,0,0.4)",
-              overflow: "hidden",
-            }}
-          >
-            {/* 봉투 안쪽 V 장식 (아래쪽) */}
-            <div style={{
-              position: "absolute",
-              left: 0,
-              right: 0,
-              bottom: 0,
-              height: "100%",
-              clipPath: "polygon(0 100%, 50% 30%, 100% 100%)",
-              background: "#b89b72",
-            }} />
-          </div>
-
-          {/* 봉투 뚜껑 (위쪽 삼각 플랩) */}
-          <div
-            style={{
-              position: "absolute",
-              left: 0,
-              right: 0,
-              bottom: "140px",
-              height: "90px",
-              zIndex: 10,
-              transformOrigin: "bottom center",
-              transition: "transform 0.5s ease-in-out",
-              transform: isOpen
-                ? "rotateX(180deg)"
-                : "rotateX(0deg)",
-              backfaceVisibility: "hidden",
-            }}
-          >
-            <div style={{
-              width: "100%",
-              height: "100%",
-              background: "#c4a882",
-              clipPath: "polygon(0 100%, 50% 0%, 100% 100%)",
-              boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
-            }} />
-          </div>
+            닫기
+          </button>
         </div>
       </div>
     </div>
   );
-}
-
-function containerStyle(phase: Phase): React.CSSProperties {
-  if (phase === "fly") {
-    return {
-      transition: "all 0.6s cubic-bezier(0.22, 1, 0.36, 1)",
-      transform: "translateY(100vh) rotate(12deg) scale(0.4)",
-      opacity: 0,
-    };
-  }
-  if (phase === "closing") {
-    return {
-      transition: "all 0.6s cubic-bezier(0.55, 0, 1, 0.45)",
-      transform: "translateY(60px) scale(0.7)",
-      opacity: 0,
-    };
-  }
-  return {
-    transition: "all 0.6s cubic-bezier(0.22, 1, 0.36, 1)",
-    transform: "translateY(0) rotate(0deg) scale(1)",
-    opacity: 1,
-  };
 }
