@@ -16,6 +16,10 @@
   border-radius: 0 !important;
 }
 
+html {
+  overflow-y: scroll;
+}
+
 body {
   background: var(--color-bg);
   color: var(--color-text);

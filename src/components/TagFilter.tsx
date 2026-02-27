@@ -12,22 +12,23 @@ export default function TagFilter({ tags, activeTag, onSelect }: TagFilterProps)
       <button
         type="button"
         onClick={() => onSelect(null)}
-        className={`px-3 py-1 text-sm font-mono border transition-colors duration-200 cursor-pointer ${
+        className={`px-3 py-1.5 text-sm font-mono border transition-colors duration-200 cursor-pointer ${
           activeTag === null
-            ? "border-accent text-accent"
+            ? "border-accent text-accent bg-accent/10"
             : "border-border text-text-secondary hover:border-border-hover hover:text-text"
         }`}
       >
         All
       </button>
+      <span className="w-px bg-border self-stretch" />
       {tags.map((tag) => (
         <button
           key={tag}
           type="button"
           onClick={() => onSelect(tag)}
-          className={`px-3 py-1 text-sm font-mono border transition-colors duration-200 cursor-pointer ${
+          className={`px-3 py-1.5 text-sm font-mono border transition-colors duration-200 cursor-pointer ${
             activeTag === tag
-              ? "border-accent text-accent"
+              ? "border-accent text-accent bg-accent/10"
               : "border-border text-text-secondary hover:border-border-hover hover:text-text"
           }`}
         >
