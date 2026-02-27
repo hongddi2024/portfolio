@@ -3,14 +3,19 @@ export default function AboutPage() {
     <div className="px-6 py-8 max-w-3xl mx-auto">
       <h1 className="font-mono text-lg text-accent mb-6">About</h1>
 
-      <section className="mb-8">
-        <h2 className="font-mono text-sm text-text-secondary mb-3 uppercase tracking-wider">
-          Profile
-        </h2>
-        <p className="text-text leading-relaxed">
-          BlockBench를 활용한 3D 복셀 아트 아티스트입니다. 게임 에셋, 환경,
-          캐릭터 모델링을 중심으로 작업하고 있습니다.
-        </p>
+      <section className="mb-8 flex items-start gap-6">
+        <div className="shrink-0 w-28 h-28 border border-border bg-card flex items-center justify-center">
+          <span className="font-mono text-xs text-text-secondary">Profile Image</span>
+        </div>
+        <div>
+          <h2 className="font-mono text-sm text-text-secondary mb-3 uppercase tracking-wider">
+            Profile
+          </h2>
+          <p className="text-text leading-relaxed">
+            로우폴리 모델링을 주력으로 하는 3D 아티스트입니다. 게임 에셋, 캐릭터
+            모델링을 중심으로 작업하고 있습니다.
+          </p>
+        </div>
       </section>
 
       <section className="mb-8">
@@ -19,13 +24,12 @@ export default function AboutPage() {
         </h2>
         <ul className="flex flex-wrap gap-2">
           {[
-            "BlockBench",
-            "Voxel Art",
-            "3D Modeling",
             "Pixel Art",
-            "Game Assets",
-            "Environment Design",
+            "Lowpoly",
+            "3D Modeling",
+            "Texture Mapping",
             "Character Design",
+            "Assets Design",
           ].map((skill) => (
             <li
               key={skill}
@@ -42,7 +46,7 @@ export default function AboutPage() {
           Tools
         </h2>
         <ul className="flex flex-wrap gap-2">
-          {["BlockBench", "Blender", "Aseprite", "Photoshop"].map((tool) => (
+          {["Blockbench", "Aseprite", "3DS MAX", "Cinema4D", "Blender"].map((tool) => (
             <li
               key={tool}
               className="border border-border px-3 py-1 text-sm font-mono text-text-secondary"
