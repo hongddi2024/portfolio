@@ -30,6 +30,11 @@ export default function RootLayout({
       >
         <Navbar />
         <main className="pt-12">{children}</main>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `document.addEventListener('contextmenu',function(e){if(e.target.tagName==='IMG'||e.target.closest('button'))e.preventDefault()});`,
+          }}
+        />
       </body>
     </html>
   );
