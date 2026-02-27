@@ -52,7 +52,7 @@ export default function PortfolioPage() {
   return (
     <>
       <div
-        className={`fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50 flex flex-col items-center pointer-events-none transition-opacity duration-700 ${
+        className={`fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50 flex flex-col items-center pointer-events-none transition-opacity duration-700 bg-bg/80 px-10 py-8 border border-border ${
           showSplash ? "opacity-100" : "opacity-0"
         }`}
       >
